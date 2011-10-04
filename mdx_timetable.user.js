@@ -24,23 +24,22 @@
             }
     }
 
-    allPageTitleDivs = document.getElementsByClassName('pagetitlediv');
-    for( var i = allPageTitleDivs.length - 1; i >=0; i-- )
-    {
-        allPageTitleDivs[i].style.backgroundColor = '#AAA'
-        allPageTitleDivs[i].style.display = 'none'
-    }
+    var css = '.pagetitlediv, .infotextdiv, .headerwrapperdiv { display: none; }'; 
 
-    allInfoTextDivs = document.getElementsByClassName('infotextdiv');
-    for( var i = allInfoTextDivs.length - 1; i >=0; i-- )
-    {
-        allInfoTextDivs[i].style.display = 'none'
-    }
-
-    allHeaderWrapperDivs = document.getElementsByClassName('headerwrapperdiv');
-    for( var i = allHeaderWrapperDivs.length - 1; i >=0; i-- )
-    {
-        allHeaderWrapperDivs[i].style.display = 'none'
+    try {
+        var elmHead, elmStyle;
+        elmHead = document.getElementsByTagName('head')[0];
+        elmStyle = document.createElement('style');
+        elmStyle.type = 'text/css';
+        elmHead.appendChild( elmStyle );
+        elmStyle.innerHTML = css;
+        //alert( "elmStyle.innerHTML: " + elmStyle.innerHTML ); 
+    } catch( e ) {
+        if( !document.styleSheets.length ) {
+            document.createStyleSheet();
+        }
+        document.styleSheets[0].cssText += css;
+        //          alert( "document.styleSheets[0]: " + document.styleSheets[0] ); 
     }
 
     body = document.getElementsByTagName('body')[0];
