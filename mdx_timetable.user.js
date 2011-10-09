@@ -67,19 +67,18 @@
     var rows = timetable.rows;
     for( var i = 0; i < rows.length; i++ )
     {
+        if( i%2 == 0 )
+            rows[i].style.backgroundColor = '#badcdd'; 
+        else
+            rows[i].style.backgroundColor = '#cbf1f2';
+
         var cells = rows[i].cells;
         if( cells )
             for( var j = 0; j < cells.length; j++ )
             {
                 cell = cells[j];
-                if( i%2 == 0 )
-                {
-                    cell.style.backgroundColor = '#badcdd';
-                }
-                else
-                {
-                    cell.style.backgroundColor = '#cbf1f2';
-                }
+                
+                // lectures/labs/seminars
                 if( cell.attributes[0].value == 'ddlabel' )
                 {
                     cell.style.backgroundColor = '#212b40';
