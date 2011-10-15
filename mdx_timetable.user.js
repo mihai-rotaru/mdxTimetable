@@ -82,6 +82,49 @@
                 if( cell.attributes[0].value == 'ddlabel' )
                 {
                     cell.style.backgroundColor = '#212b40';
+                    
+                    ih = cell.innerHTML;
+                    console.debug( ih );
+                    
+                    // link to the course
+                    var href = ih.match('<a href="(.*)">CMT')[1];
+                    console.info( href );
+
+                    // module code
+                    var re_module_code = /<a href=".*">(CMT\s\d+)/
+                    var module_code = ih.match( re_module_code )[1];
+                    console.info( module_code );
+
+                    // type - lecture, seminar, lab
+                    var re_type = /<br>\d+\s(Laboratory|Lecture|Seminar)<br>/
+                    var type = ih.match( re_type )[1];
+                    console.info( type );
+
+                    var type_char;
+                    switch( type ) {
+                        case 'Lecture':    type_char = 'C'; break;
+                        case 'Laboratory': type_char = 'L'; break;
+                        case 'Seminar':    type_char = 'S'; break;
+                        default:           type_char = '?';
+                    }
+
+                    // time
+                    var re_time = /<br>(\d{1,2}:\d{2}\s(?:AM|PM))-(\d{1,2}:\d{2}\s(?:AM|PM))<br>/
+                    var item_time_start = ih.match( re_time )[1];
+                    var item_time_end   = ih.match( re_time )[2];
+                    console.info( item_time_start );
+                    console.info( item_time_end );
+
+                    // location
+                    var re_location = /<br>\w+\s(\w{1,2}\d+\w?)/
+                    var item_location = ih.match( re_location )[1];
+                    console.info( item_location );
+
+                    cell.innerHTML = '<a href=\"' + href + '">' 
+                        + module_code + ' ' + type_char + '<br>' 
+                        + item_location + '<br>'
+                        + item_time_start + '<br>'
+                        + item_time_end;
                 }
             }
     }
