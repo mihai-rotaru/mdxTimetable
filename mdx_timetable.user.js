@@ -39,6 +39,17 @@
     // table header
     css += 'TABLE TH.ddheader { width: 30px; height: 30px; vertical-align: middle; }';
 
+    // locations
+    css += '.college_building     { color: white; background-color: #ee3124; }';
+    css += '.hatchcroft_building  { color: white; background-color: #9a4e9e; }';
+    css += '.grove_building       { color: white; background-color: #8dc63f; }';
+    css += '.hendon_town_hall     { color: white; background-color: #8dc63f; }';
+    css += '.hendon_town_hall     { color: white; background-color: #8dc63f; }';
+    css += '.sheppard_library     { color: white; background-color: #13b5ea; }';
+    css += '.williams_building    { color: white; background-color: #00b1b0; }';
+    css += '.the_forum            { color: white; background-color: #f8971d; }';
+    css += '.musu                 { color: white; background-color: #629081; }';
+
     // inject the CSS code into the 'head' element
     try {
         var elmHead, elmStyle;
@@ -120,9 +131,20 @@
                     var item_location = ih.match( re_location )[1];
                     console.info( item_location );
 
+                    var location_class;
+                    switch(item_location[0]) {
+                        case 'C': location_class = 'college_building';    break;
+                        case 'H': location_class = 'hatchcroft_building'; break;
+                        case 'W': location_class = 'williams_building';   break;
+                        case 'G': location_class = 'grove_building';      break;
+                        case 'S': location_class = 'sheppard_library';    break;
+                        case 'T': location_class = 'hendon_town_hall';    break;
+                        default: location_class = 'musu'; // dark, greyish green
+                    }
+
                     cell.innerHTML = '<a href=\"' + href + '">' 
                         + module_code + ' ' + type_char + '<br>' 
-                        + item_location + '<br>'
+                        + '<span class="' + location_class + '">' + item_location + '</span><br>'
                         + item_time_start + '<br>'
                         + item_time_end;
                 }
